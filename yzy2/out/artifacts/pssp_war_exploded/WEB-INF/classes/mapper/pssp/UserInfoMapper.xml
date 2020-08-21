@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.icbc.cdcp.pssp.mapper.UserInfoMapper">
+  <resultMap id="BaseResultMap" type="com.icbc.cdcp.pssp.dto.UserInfo">
+    <constructor>
+      <idArg column="USER_ID" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="USER_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="GENDER" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="ROOM_NUM" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="PHONE_NUM" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="EMAIL" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="SALT" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="PASSWORD" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="GROUP_ID" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="COMPANY_ID" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="DEP_ID" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="ROLE_ID" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="STATUS" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="LINE_LEADER" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="UPDATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="CREATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="EXT_1" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="EXT_2" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="EXT_3" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    USER_ID, USER_NAME, GENDER, ROOM_NUM, PHONE_NUM, EMAIL, SALT, PASSWORD, GROUP_ID, 
+    COMPANY_ID, DEP_ID, ROLE_ID, STATUS, LINE_LEADER, UPDATE_TIME, CREATE_TIME, EXT_1, 
+    EXT_2, EXT_3
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from USER_INFO
+    where USER_ID = #{userId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByUsername" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from USER_INFO
+    where EMAIL = #{email,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectGroupNameById" parameterType="java.lang.Integer" resultType="java.lang.String">
+    select GROUP_NAME
+    from GROUP_INFO
+    where GROUP_ID = #{groupId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectDepNameById" parameterType="java.lang.Integer" resultType="java.lang.String">
+    select DEP_NAME
+    from DEP_INFO
+    where DEP_ID = #{depId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectComNameById" parameterType="java.lang.Integer" resultType="java.lang.String">
+    select COMPANY_NAME
+    from COMPANY_INFO
+    where COMPANY_ID = #{companyId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectNameByUid" parameterType="java.lang.Integer" resultType="java.lang.String">
+    select USER_NAME
+    from USER_INFO
+    where USER_ID = #{userId,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from USER_INFO
+    where USER_ID = #{userId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" useGeneratedKeys="true" keyProperty="userId" parameterType="com.icbc.cdcp.pssp.dto.UserInfo">
+    insert into USER_INFO ( USER_NAME, GENDER,
+      ROOM_NUM, PHONE_NUM, EMAIL, 
+      SALT, PASSWORD, GROUP_ID, 
+      COMPANY_ID, DEP_ID, ROLE_ID, 
+      STATUS, LINE_LEADER, UPDATE_TIME, 
+      CREATE_TIME, EXT_1, EXT_2, 
+      EXT_3)
+    values (#{userName,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER},
+      #{roomNum,jdbcType=VARCHAR}, #{phoneNum,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{salt,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{groupId,jdbcType=INTEGER}, 
+      #{companyId,jdbcType=INTEGER}, #{depId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{lineLeader,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{ext1,jdbcType=VARCHAR}, #{ext2,jdbcType=VARCHAR}, 
+      #{ext3,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.icbc.cdcp.pssp.dto.UserInfo">
+    insert into USER_INFO
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        USER_ID,
+      </if>
+      <if test="userName != null">
+        USER_NAME,
+      </if>
+      <if test="gender != null">
+        GENDER,
+      </if>
+      <if test="roomNum != null">
+        ROOM_NUM,
+      </if>
+      <if test="phoneNum != null">
+        PHONE_NUM,
+      </if>
+      <if test="email != null">
+        EMAIL,
+      </if>
+      <if test="salt != null">
+        SALT,
+      </if>
+      <if test="password != null">
+        PASSWORD,
+      </if>
+      <if test="groupId != null">
+        GROUP_ID,
+      </if>
+      <if test="companyId != null">
+        COMPANY_ID,
+      </if>
+      <if test="depId != null">
+        DEP_ID,
+      </if>
+      <if test="roleId != null">
+        ROLE_ID,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="lineLeader != null">
+        LINE_LEADER,
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="ext1 != null">
+        EXT_1,
+      </if>
+      <if test="ext2 != null">
+        EXT_2,
+      </if>
+      <if test="ext3 != null">
+        EXT_3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="roomNum != null">
+        #{roomNum,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNum != null">
+        #{phoneNum,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null">
+        #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="groupId != null">
+        #{groupId,jdbcType=INTEGER},
+      </if>
+      <if test="companyId != null">
+        #{companyId,jdbcType=INTEGER},
+      </if>
+      <if test="depId != null">
+        #{depId,jdbcType=INTEGER},
+      </if>
+      <if test="roleId != null">
+        #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="lineLeader != null">
+        #{lineLeader,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ext1 != null">
+        #{ext1,jdbcType=VARCHAR},
+      </if>
+      <if test="ext2 != null">
+        #{ext2,jdbcType=VARCHAR},
+      </if>
+      <if test="ext3 != null">
+        #{ext3,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.icbc.cdcp.pssp.dto.UserInfo">
+    update USER_INFO
+    <set>
+      <if test="userName != null">
+        USER_NAME = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        GENDER = #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="roomNum != null">
+        ROOM_NUM = #{roomNum,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNum != null">
+        PHONE_NUM = #{phoneNum,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null">
+        SALT = #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        PASSWORD = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="groupId != null">
+        GROUP_ID = #{groupId,jdbcType=INTEGER},
+      </if>
+      <if test="companyId != null">
+        COMPANY_ID = #{companyId,jdbcType=INTEGER},
+      </if>
+      <if test="depId != null">
+        DEP_ID = #{depId,jdbcType=INTEGER},
+      </if>
+      <if test="roleId != null">
+        ROLE_ID = #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="lineLeader != null">
+        LINE_LEADER = #{lineLeader,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ext1 != null">
+        EXT_1 = #{ext1,jdbcType=VARCHAR},
+      </if>
+      <if test="ext2 != null">
+        EXT_2 = #{ext2,jdbcType=VARCHAR},
+      </if>
+      <if test="ext3 != null">
+        EXT_3 = #{ext3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where USER_ID = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.icbc.cdcp.pssp.dto.UserInfo">
+    update USER_INFO
+    set USER_NAME = #{userName,jdbcType=VARCHAR},
+      GENDER = #{gender,jdbcType=INTEGER},
+      ROOM_NUM = #{roomNum,jdbcType=VARCHAR},
+      PHONE_NUM = #{phoneNum,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      SALT = #{salt,jdbcType=VARCHAR},
+      PASSWORD = #{password,jdbcType=VARCHAR},
+      GROUP_ID = #{groupId,jdbcType=INTEGER},
+      COMPANY_ID = #{companyId,jdbcType=INTEGER},
+      DEP_ID = #{depId,jdbcType=INTEGER},
+      ROLE_ID = #{roleId,jdbcType=INTEGER},
+      STATUS = #{status,jdbcType=INTEGER},
+      LINE_LEADER = #{lineLeader,jdbcType=INTEGER},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      EXT_1 = #{ext1,jdbcType=VARCHAR},
+      EXT_2 = #{ext2,jdbcType=VARCHAR},
+      EXT_3 = #{ext3,jdbcType=VARCHAR}
+    where USER_ID = #{userId,jdbcType=INTEGER}
+  </update>
+</mapper>

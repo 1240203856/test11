@@ -1,0 +1,18 @@
+
+server:
+  port: 80
+
+spring:
+  datasource:
+    pssp:
+      jdbc-url: jdbc:mysql://localhost:3306/pssp?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+      username: root
+      password: admin
+      driver-class-name: com.mysql.jdbc.Driver
+      type: com.alibaba.druid.pool.DruidDataSource
+
+
+mybatis:
+  pssp:
+    mapper-locations: classpath:mapper/pssp/*.xml
+

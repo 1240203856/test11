@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.icbc.cdcp.pssp.mapper.InOutRecInfoMapper">
+  <resultMap id="BaseResultMap" type="com.icbc.cdcp.pssp.dto.InOutRecInfo">
+    <constructor>
+      <idArg column="IN_OUT_ID" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="USER_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="FLAG" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="DEL_FLAG" javaType="java.lang.Integer" jdbcType="INTEGER" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    IN_OUT_ID, USER_ID, TIME, FLAG, DEL_FLAG
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from IN_OUT_REC_INFO
+    where IN_OUT_ID = #{inOutId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from IN_OUT_REC_INFO
+    where IN_OUT_ID = #{inOutId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.icbc.cdcp.pssp.dto.InOutRecInfo">
+    insert into IN_OUT_REC_INFO (IN_OUT_ID, USER_ID, TIME, 
+      FLAG, DEL_FLAG)
+    values (#{inOutId,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, #{time,jdbcType=TIMESTAMP}, 
+      #{flag,jdbcType=INTEGER}, #{delFlag,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.icbc.cdcp.pssp.dto.InOutRecInfo">
+    insert into IN_OUT_REC_INFO
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="inOutId != null">
+        IN_OUT_ID,
+      </if>
+      <if test="userId != null">
+        USER_ID,
+      </if>
+      <if test="time != null">
+        TIME,
+      </if>
+      <if test="flag != null">
+        FLAG,
+      </if>
+      <if test="delFlag != null">
+        DEL_FLAG,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="inOutId != null">
+        #{inOutId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="flag != null">
+        #{flag,jdbcType=INTEGER},
+      </if>
+      <if test="delFlag != null">
+        #{delFlag,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.icbc.cdcp.pssp.dto.InOutRecInfo">
+    update IN_OUT_REC_INFO
+    <set>
+      <if test="userId != null">
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null">
+        TIME = #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="flag != null">
+        FLAG = #{flag,jdbcType=INTEGER},
+      </if>
+      <if test="delFlag != null">
+        DEL_FLAG = #{delFlag,jdbcType=INTEGER},
+      </if>
+    </set>
+    where IN_OUT_ID = #{inOutId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.icbc.cdcp.pssp.dto.InOutRecInfo">
+    update IN_OUT_REC_INFO
+    set USER_ID = #{userId,jdbcType=VARCHAR},
+      TIME = #{time,jdbcType=TIMESTAMP},
+      FLAG = #{flag,jdbcType=INTEGER},
+      DEL_FLAG = #{delFlag,jdbcType=INTEGER}
+    where IN_OUT_ID = #{inOutId,jdbcType=INTEGER}
+  </update>
+</mapper>

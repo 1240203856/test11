@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Created-By: IntelliJ IDEA
+Built-By: yaoze1
+Build-Jdk: 14.0.1
+Implementation-Title: pssp
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: com.icbc.cdcp
+Main-Class: ${start-class}
+
